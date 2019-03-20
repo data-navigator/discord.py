@@ -83,7 +83,7 @@ class Channel(Hashable):
 
     __slots__ = [ 'voice_members', 'name', 'id', 'server', 'topic', 'position',
                   'is_private', 'type', 'bitrate', 'user_limit',
-                  '_permission_overwrites' ]
+                  '_permission_overwrites', 'parent_id', 'nsfw' ]
 
     def __init__(self, **kwargs):
         self._update(**kwargs)
@@ -91,6 +91,9 @@ class Channel(Hashable):
 
     def __str__(self):
         return self.name
+
+    def __await__(self):
+        pass
 
     def _update(self, **kwargs):
         self.name = kwargs.get('name')
@@ -102,6 +105,8 @@ class Channel(Hashable):
         self.bitrate = kwargs.get('bitrate')
         self.type = kwargs.get('type')
         self.user_limit = kwargs.get('user_limit')
+        self.parent_id = kwargs.get('parent_id', None)
+        self.nsfw = kwargs.get('nsfw', False)
         try:
             self.type = ChannelType(self.type)
         except:
