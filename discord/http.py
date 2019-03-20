@@ -465,10 +465,11 @@ class HTTPClient:
         r = Route('PATCH', '/guilds/{guild_id}/channels', guild_id=guild_id)
         return self.request(r, json=positions)
 
-    def create_channel(self, guild_id, name, channe_type, permission_overwrites=None):
+    def create_channel(self, guild_id, name, channe_type, permission_overwrites=None, parent=None):
         payload = {
             'name': name,
-            'type': channe_type
+            'type': channe_type,
+            'parent_id': parent,
         }
 
         if permission_overwrites is not None:
